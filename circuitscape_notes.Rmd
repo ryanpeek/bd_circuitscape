@@ -1,0 +1,83 @@
+---
+title: "Circuitscape Notes"
+description: |
+  Notes about circuitscape analysis
+author:
+  - name: RAP
+date: "*Updated `r Sys.Date()`*"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Omniscape
+
+- every pixel is a ground
+- sends every thing to pixel, stacks these based on a given radius, and returns
+- omniscape can deal with a "floodplain"
+
+Using a "wall-to-wall" for east to west flow
+
+ - put pixels at top of bathtub ring as sources
+ - then 4-5 pixels out in bay or in ocean as ground
+ 
+## Circuitscape
+
+ - **pairwise** is between a specific node to a specific ground
+ - **all-to-one** movement is from outside to a single pixel (ground)
+    - but would want some sensitivity analysis by moving ground around
+ - **one-to-all** 
+
+## outcomes
+
+ - really well connected but food poor is not so successful
+ - high connectivity does not always equal "good"
+ 
+ Using a difference map or spatial correlation map to look at how things change:
+ 
+  - pinch points
+  - redundancies
+  
+  
+Diffuse pattern = high redundancy, which could also be important (some equifinality), you can get hotspots for different reasons.
+
+Be careful about real processes vs. artifacts of model
+
+## questions
+
+ - how to integrate time and space?
+ 
+## Resistance Surfaces
+
+ - where there's water = 0
+ - where no water = 1000
+ 
+ Every resistance value is likelihood something is going to move through it, more stochastic or seasonal, could yield lower value.
+ If you are terrestrial, you are high resistance, if it floods, lower value
+ 
+ or 3-4 phases through year, model each one and synthesize to show differences
+ 
+ If you think rest of the landscape is harder to move through (dry season is most challenging), allows you to identify the critical places that matter during the hardest times
+
+Functional form between metric using for resistance definition (negative exponential decline for inundation), or resistance low until it shoots up (power law)
+ 
+ - inverse distance weighting (using distance based interpolation)
+ - could use kriging to build in assymetry to how things are smoothed
+ 
+## Resources
+ 
+ - [Omniscape](https://www.conservationgateway.org/ConservationByGeography/NorthAmerica/UnitedStates/oregon/science/Documents/McRae_et_al_2016_PNW_CNS_Connectivity.pdf)
+ 
+ - [randomized shortest paths](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecs2.1969)
+ 
+ - [estimating resistance functions](https://link.springer.com/article/10.1007/s10980-016-0387-5)
+ 
+ - [interpolation in arcgis](https://pro.arcgis.com/en/pro-app/latest/tool-reference/geostatistical-analyst/diffusion-interpolation-with-barriers.htm)
+ 
+ - [interpolation in R](https://www.researchgate.net/publication/262688902_ipdw_An_R_Package_for_Interpolation_via_Inverse_Path_Distance_Weighting)
+ 
+ - `juliacall`, use to send resistance surfaces with `.ini` file to Julia
+ 
+ - [soap film interpolation](https://fromthebottomoftheheap.net/2016/03/27/soap-film-smoothers/)

@@ -52,7 +52,7 @@ Be careful about real processes vs. artifacts of model
 ## Resistance Surfaces
 
  - where there's water = 0
- - where no water = 1000
+ - no water = 1000
  
  Every resistance value is likelihood something is going to move through it, more stochastic or seasonal, could yield lower value.
  If you are terrestrial, you are high resistance, if it floods, lower value

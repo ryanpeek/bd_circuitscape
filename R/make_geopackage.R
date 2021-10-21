@@ -25,16 +25,16 @@ map(shp_ls, ~st_crs(.x)$epsg)
 
 # View --------------------------------------------------------------------
 
-mapview(shp_ls[1]) + mapview(shp_ls[2]) + mapview(shp_ls[3])
-mapview(shp_ls[4]) + mapview(shp_ls[5]) + mapview(shp_ls[6])
-mapview(shp_ls[7]) + mapview(shp_ls[8]) + mapview(shp_ls[9])
-mapview(shp_ls[10]) + mapview(shp_ls[11]) + mapview(shp_ls[12])
-mapview(shp_ls[13]) # sac
-# US water areas and lines are 14 and 15 but too large
-# and 17 is too much too
-mapview(shp_ls[16]) 
-mapview(shp_ls[18]) 
-mapview(shp_ls[19]) 
+# mapview(shp_ls[1]) + mapview(shp_ls[2]) + mapview(shp_ls[3])
+# mapview(shp_ls[4]) + mapview(shp_ls[5]) + mapview(shp_ls[6])
+# mapview(shp_ls[7]) + mapview(shp_ls[8]) + mapview(shp_ls[9])
+# mapview(shp_ls[10]) + mapview(shp_ls[11]) + mapview(shp_ls[12])
+# mapview(shp_ls[13]) # sac
+# # US water areas and lines are 14 and 15 but too large
+# # and 17 is too much too
+# mapview(shp_ls[16]) 
+# mapview(shp_ls[18]) 
+# mapview(shp_ls[19]) 
 
 # American Forks: Major mainstems for American watershed
 # Analysis_areas3.shp = Cosumnes polygon
@@ -58,7 +58,7 @@ names(shp_ls)
 shp_ls_trim <- shp_ls[-c(14, 15, 17)]
 names(shp_ls_trim)
 
-# Write out! --------------------------------------------------------------
+# Write out Shapefiles --------------------------------------------------------------
 
 names(shp_ls_trim)
 
@@ -109,4 +109,22 @@ st_write(shp_ls_trim[[15]], dsn = gpkg_name, layer = "sacriver_poly",
          delete_layer = TRUE)
 
 # double check
+st_layers(gpkg_name)
+
+
+
+# Load RDA Files ----------------------------------------------------------
+
+# setup geopackage
+gpkg_name <- "data/ca_river_delta_spatial_data.gpkg"
+
+# load RDA
+load("data/cities_sf.rda")
+mapview(cities_sf)
+
+
+# write out
+st_write(cities_sf, dsn = gpkg_name, layer = "ca_cities",
+         delete_layer = TRUE)
+
 st_layers(gpkg_name)

@@ -30,8 +30,9 @@ mapview(shp_ls[4]) + mapview(shp_ls[5]) + mapview(shp_ls[6])
 mapview(shp_ls[7]) + mapview(shp_ls[8]) + mapview(shp_ls[9])
 mapview(shp_ls[10]) + mapview(shp_ls[11]) + mapview(shp_ls[12])
 mapview(shp_ls[13]) # sac
-# US water areas and lines are 15 and 16 but too large
-mapview(shp_ls[17]) 
+# US water areas and lines are 14 and 15 but too large
+# and 17 is too much too
+mapview(shp_ls[16]) 
 mapview(shp_ls[18]) 
 mapview(shp_ls[19]) 
 
@@ -44,10 +45,68 @@ mapview(shp_ls[19])
 # Legal_Delta
 # M_forks: Merced
 # Mk_forks: Mokelumne
-# PrimarySecondaryDelta: southern loab of delta
+# PrimarySecondaryDelta: southern lobe of delta
 # S_forks: Stanislaus
 # SJ_forks: San Joaquin
 # Sac_forks: Sacramento
 # 17: hydro_poly_MWT (full waterbody poly)
 # 18: hydro_poly_Sac_SJR (waterbody poly for sac/sjr)
 # 19: t_forks: Tuolumne
+
+# remove the layers we don't need/want right now: 14, 15, 17
+names(shp_ls)
+shp_ls_trim <- shp_ls[-c(14, 15, 17)]
+names(shp_ls_trim)
+
+# Write out! --------------------------------------------------------------
+
+names(shp_ls_trim)
+
+# setup geopackage
+gpkg_name <- "data/ca_river_delta_spatial_data.gpkg"
+
+# write out
+st_write(shp_ls_trim[[1]], dsn = gpkg_name, layer = "amer_river",
+         delete_layer = TRUE, delete_dsn = TRUE)
+
+st_write(shp_ls_trim[[4]], dsn = gpkg_name, layer = "feath_river",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[8]], dsn = gpkg_name, layer = "merced_river",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[9]], dsn = gpkg_name, layer = "moke_river",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[11]], dsn = gpkg_name, layer = "sjqn_river",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[12]], dsn = gpkg_name, layer = "stan_river",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[13]], dsn = gpkg_name, layer = "sac_river",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[16]], dsn = gpkg_name, layer = "tuo_river",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[2]], dsn = gpkg_name, layer = "cos_floodplain",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[14]], dsn = gpkg_name, layer = "yolo_bypass",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[6]], dsn = gpkg_name, layer = "yolosutt_bypass",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[7]], dsn = gpkg_name, layer = "legal_delta",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[10]], dsn = gpkg_name, layer = "secondarydelta",
+         delete_layer = TRUE)
+
+st_write(shp_ls_trim[[15]], dsn = gpkg_name, layer = "sacriver_poly",
+         delete_layer = TRUE)
+
+# double check
+st_layers(gpkg_name)
